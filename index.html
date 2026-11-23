@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>珈琲と焼き菓子 こもれび</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="住宅街の小さな喫茶店。自家焙煎の珈琲と、毎朝焼く焼き菓子をご用意しています。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: 一枚の縦長ページ。木漏れ日の緑を地に、焙煎豆の茶とからし色で温度を足す */
+:root {
+  --bg: #f2f4ee;
+  --surface: #ffffff;
+  --fg: #1e2b24;
+  --muted: #5b6a61;
+  --line: #d5dccf;
+  --green: #2f4f3e;
+  --accent: #b8862a;
+  --on-green: #eef3ea;
+  --font-display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141a16; --surface: #1c241f; --fg: #e6ebe3; --muted: #a3b0a7;
+    --line: #2f3a33; --green: #24392d; --accent: #d9a849; --on-green: #e6ede2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141a16; --surface: #1c241f; --fg: #e6ebe3; --muted: #a3b0a7;
+  --line: #2f3a33; --green: #24392d; --accent: #d9a849; --on-green: #e6ede2;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap {
+  max-width: 1040px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; line-height: 1.4; margin: 0; }
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+
+/* 見本サイトの表示 */
+.notice { background: var(--accent); color: #1e1a10; font-size: 0.8rem; text-align: center; padding-block: 6px; }
+
+/* ヘッダー */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+header.site {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(6px); border-bottom: 1px solid var(--line);
+}
+header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; flex-wrap: wrap; }
+.logo { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; text-decoration: none; display: flex; flex-direction: column; line-height: 1.3; }
+.logo small { font-family: var(--font-body); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em; font-weight: 500; }
+nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+nav a { text-decoration: none; font-size: 0.9rem; color: var(--muted); }
+nav a:hover { color: var(--fg); }
+
+/* ヒーロー：木漏れ日の光の粒をCSSで描く */
+.hero { background: var(--green); color: var(--on-green); position: relative; overflow: hidden; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(255,236,170,.28) 0 60px, transparent 61px),
+    radial-gradient(circle at 72% 22%, rgba(255,236,170,.18) 0 90px, transparent 91px),
+    radial-gradient(circle at 85% 70%, rgba(255,236,170,.22) 0 40px, transparent 41px),
+    radial-gradient(circle at 40% 80%, rgba(255,236,170,.12) 0 120px, transparent 121px),
+    radial-gradient(circle at 60% 50%, rgba(255,236,170,.10) 0 30px, transparent 31px);
+  filter: blur(8px);
+  animation: sway 14s ease-in-out infinite alternate;
+}
+@keyframes sway { from { transform: translate(0,0); } to { transform: translate(-24px, 12px); } }
+@media (prefers-reduced-motion: reduce) { .hero::before { animation: none; } }
+.hero .wrap { position: relative; padding-block: 88px 96px; display: grid; gap: 28px; }
+.hero h1 { font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 500; }
+.hero h1 span { color: var(--accent); }
+.hero p { max-width: 34em; margin: 0; opacity: .9; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-block; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 0.95rem; }
+.btn.primary { background: var(--accent); color: #1e1a10; }
+.btn.ghost { border: 1px solid currentColor; }
+
+section { padding-block: 80px; }
+.sec-head { display: grid; gap: 8px; margin-bottom: 40px; }
+.sec-head h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); }
+
+/* コンセプト */
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
+.concept-grid > div { min-width: 0; display: grid; gap: 8px; align-content: start; }
+.concept-grid h3 { font-size: 1.15rem; }
+.concept-grid p { margin: 0; color: var(--muted); }
+.mark { width: 44px; height: 44px; border-radius: 50%; background: var(--green); color: var(--on-green); display: grid; place-items: center; font-family: var(--font-display); font-size: 1.2rem; }
+
+/* メニュー */
+.menu { background: var(--surface); border-block: 1px solid var(--line); }
+.menu-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 48px; }
+.menu-cols > div { min-width: 0; }
+.menu h3 { font-size: 1.1rem; padding-bottom: 8px; border-bottom: 2px solid var(--fg); margin-bottom: 8px; }
+.menu dl { margin: 0; }
+.item { display: flex; align-items: baseline; gap: 8px; padding-block: 10px; border-bottom: 1px dashed var(--line); }
+.item dt { font-weight: 500; }
+.item dt small { display: block; font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+.item .dots { flex: 1; }
+.item dd { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.note { font-size: 0.8rem; color: var(--muted); margin-top: 24px; }
+.tag { display: inline-block; font-size: 0.7rem; background: var(--accent); color: #1e1a10; padding: 0 8px; border-radius: 4px; margin-left: 6px; vertical-align: 2px; }
+
+/* 店舗情報 */
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+.info-grid > div { min-width: 0; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { width: 7em; color: var(--muted); font-weight: 500; font-size: 0.9rem; }
+.hours td { font-variant-numeric: tabular-nums; }
+.map {
+  aspect-ratio: 4 / 3; max-width: 100%; border-radius: 12px; border: 1px solid var(--line);
+  background:
+    linear-gradient(90deg, transparent 48%, var(--line) 48% 52%, transparent 52%),
+    linear-gradient(0deg, transparent 58%, var(--line) 58% 61%, transparent 61%),
+    linear-gradient(30deg, transparent 70%, var(--line) 70% 72%, transparent 72%),
+    var(--surface);
+  position: relative; display: grid; place-items: center;
+}
+.pin { background: var(--green); color: var(--on-green); padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; position: relative; }
+.pin::after { content: ""; position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); border: 8px solid transparent; border-top-color: var(--green); border-bottom: 0; }
+.map-caption { font-size: 0.85rem; color: var(--muted); margin: 8px 0 0; }
+
+/* お知らせ */
+.news ul { list-style: none; margin: 0; padding: 0; }
+.news li { display: flex; gap: 24px; padding-block: 14px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.news time { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 7em; }
+
+footer { background: var(--green); color: var(--on-green); }
+footer .wrap { padding-block: 40px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; }
+footer p { margin: 0; }
+
+@media (max-width: 560px) {
+  nav ul { gap: 14px; }
+  section { padding-block: 56px; }
+  .hero .wrap { padding-block: 56px 64px; }
+}
+</style>
+</head>
+<body>
+
+<div class="notice">※ これは制作見本です。店舗・住所・電話番号はすべて架空のものです。</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#top">珈琲と焼き菓子 こもれび<small>KOMOREBI COFFEE &amp; BAKE</small></a>
+    <nav aria-label="ページ内メニュー">
+      <ul>
+        <li><a href="#concept">こだわり</a></li>
+        <li><a href="#menu">メニュー</a></li>
+        <li><a href="#info">店舗情報</a></li>
+        <li><a href="#news">お知らせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Since 2019</p>
+      <h1>木漏れ日の窓辺で、<br><span>ひと息</span>つく時間を。</h1>
+      <p>住宅街の角にある、カウンター6席・テーブル8席の小さな喫茶店です。店内で焙煎した珈琲と、毎朝焼き上げる焼き菓子でお待ちしています。</p>
+      <div class="cta">
+        <a class="btn primary" href="#menu">メニューを見る</a>
+        <a class="btn ghost" href="#info">営業時間・アクセス</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="concept">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Concept</p>
+        <h2>こもれびの三つのこだわり</h2>
+      </div>
+      <div class="concept-grid">
+        <div>
+          <div class="mark">焙</div>
+          <h3>週に二度の自家焙煎</h3>
+          <p>生豆は産地ごとに少量ずつ仕入れ、火曜と金曜に店内で焙煎します。香りがいちばん立つ、焙煎後3日〜2週間の豆だけを使います。</p>
+        </div>
+        <div>
+          <div class="mark">菓</div>
+          <h3>毎朝焼く焼き菓子</h3>
+          <p>スコーン、フィナンシェ、季節のタルト。国産小麦と発酵バターを使い、開店前にその日の分だけ焼き上げます。</p>
+        </div>
+        <div>
+          <div class="mark">席</div>
+          <h3>ひとりでも落ち着ける席</h3>
+          <p>窓際のカウンターは一人がけ。読書や作業の方も歓迎です。全席禁煙、Wi-Fiと電源もご用意しています。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="menu">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Menu</p>
+        <h2>メニュー</h2>
+      </div>
+      <div class="menu-cols">
+        <div>
+          <h3>珈琲</h3>
+          <dl>
+            <div class="item"><dt>こもれびブレンド<small>中深煎り・ブラジル／エチオピア</small></dt><span class="dots"></span><dd>¥550</dd></div>
+            <div class="item"><dt>深煎りブレンド<small>苦味としっかりしたコク</small></dt><span class="dots"></span><dd>¥580</dd></div>
+            <div class="item"><dt>本日のシングルオリジン<small>産地は黒板でご案内します</small></dt><span class="dots"></span><dd>¥650〜</dd></div>
+            <div class="item"><dt>カフェオレ<small>ホット／アイス</small></dt><span class="dots"></span><dd>¥620</dd></div>
+            <div class="item"><dt>水出しアイス珈琲<small>夏季限定</small></dt><span class="dots"></span><dd>¥600</dd></div>
+          </dl>
+        </div>
+        <div>
+          <h3>焼き菓子・軽食</h3>
+          <dl>
+            <div class="item"><dt>プレーンスコーン<small>クロテッドクリームと自家製ジャム添え</small></dt><span class="dots"></span><dd>¥480</dd></div>
+            <div class="item"><dt>焦がしバターのフィナンシェ</dt><span class="dots"></span><dd>¥320</dd></div>
+            <div class="item"><dt>季節のタルト<span class="tag">11月は洋梨</span></dt><span class="dots"></span><dd>¥620</dd></div>
+            <div class="item"><dt>厚切りトーストのモーニング<small>8:00〜10:30・ドリンク付き</small></dt><span class="dots"></span><dd>¥780</dd></div>
+            <div class="item"><dt>珈琲豆（100g）<small>店頭販売・挽き目はご相談ください</small></dt><span class="dots"></span><dd>¥900〜</dd></div>
+          </dl>
+        </div>
+      </div>
+      <p class="note">価格はすべて税込です。焼き菓子はテイクアウトもできます（税率8%、店内と同じ価格で承ります）。</p>
+    </div>
+  </section>
+
+  <section id="info">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Access</p>
+        <h2>営業時間・アクセス</h2>
+      </div>
+      <div class="info-grid">
+        <div>
+          <table class="hours">
+            <tbody>
+              <tr><th>営業時間</th><td>8:00〜18:00（L.O. 17:30）</td></tr>
+              <tr><th>定休日</th><td>水曜日・第3木曜日</td></tr>
+              <tr><th>住所</th><td>〒000-0000<br>みどり市こもれび町2丁目5-8（架空）</td></tr>
+              <tr><th>電話</th><td>000-0000-0000（架空）</td></tr>
+              <tr><th>席数</th><td>14席（カウンター6・テーブル8）</td></tr>
+              <tr><th>お支払い</th><td>現金・クレジットカード・交通系IC・QRコード決済</td></tr>
+              <tr><th>駐車場</th><td>店舗横に2台</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="map" role="img" aria-label="店舗の位置を示す簡易地図"><span class="pin">こもれび</span></div>
+          <p class="map-caption">みどり駅 北口から徒歩6分。郵便局の角を曲がって2軒目です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="news" class="news">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">News</p>
+        <h2>お知らせ</h2>
+      </div>
+      <ul>
+        <li><time datetime="2026-11-20">2026.11.20</time><span>11月の季節のタルトは「洋梨とアーモンド」です。</span></li>
+        <li><time datetime="2026-11-05">2026.11.05</time><span>年末年始の営業日：12/29〜1/3はお休みをいただきます。</span></li>
+        <li><time datetime="2026-10-15">2026.10.15</time><span>エチオピア・イルガチェフェの新豆が入荷しました。</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>珈琲と焼き菓子 こもれび</p>
+    <p>© 2026 KOMOREBI（制作見本）</p>
+  </div>
+</footer>
+</body>
+</html>
